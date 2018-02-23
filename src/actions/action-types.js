@@ -1,0 +1,2 @@
+export const CREATE_COURSE = 'CREATE_COURSE';
+export const CLEAR_COURSE = 'CLEAR_COURSE';

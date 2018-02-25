@@ -2,55 +2,20 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {PropTypes} from 'prop-types';
+import {Route, withRouter} from 'react-router-dom';
 
 import * as courseActions from '../../actions/course-actions';
+import CourseList from './course-list';
+import ManageCoursePage from './manage-course-page';
 
 class CoursesPage extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.onClickSave = this.onClickSave.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
-
-    this.state = {
-      currentCourse: {
-        title: ""
-      },
-      courses: []
-    }
-  }
-
-  onTitleChange(event) {
-    const course = this.state.currentCourse;
-    course.title = event.target.value;
-    this.setState({currentCourse: course});
-  }
-
-  onClickSave(event) {
-    console.log("onClickSave ", this.state);
-    this.props.actions.createCourse(this.state.currentCourse);
-    // this.props.actions.clearCourse();
-  }
-
-  createCourseRow(course, index) {
-    return <div key={index}>{course.title}</div>
-  }
-
   render() {
     return (
       <div>
         <h1>Courses</h1>
-        {this.props.courses.map(this.createCourseRow)}
-        <h2>Add Course</h2>
+        <CourseList courses={this.props.courses}/>
 
-        <input type="text"
-               value={this.state.currentCourse.title}
-               onChange={this.onTitleChange}
-               ref="titleInputbox"/>
-
-        <input type="submit"
-               value="Save"
-               onClick={this.onClickSave}/>
+        <Route path="/courses/:id" componenet={ManageCoursePage}/>
       </div>
     );
   }
@@ -59,13 +24,12 @@ class CoursesPage extends Component {
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
-}
+};
 
 function mapStateToProps(state, ownProps) {
-  debugger
   return {
-    courses: state.courseState.courses
-  }
+    courses: state.courses
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -74,4 +38,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CoursesPage))

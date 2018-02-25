@@ -9,8 +9,10 @@ import registerServiceWorker from './registerServiceWorker';
 
 import App from './components/App';
 import configureStore from './configure-store';
+import {loadAllCourse} from "./actions/course-actions";
 
 const store = configureStore();
+store.dispatch(loadAllCourse());
 
 ReactDOM.render(
   <Provider store={store}>

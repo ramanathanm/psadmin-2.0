@@ -2,20 +2,51 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router-dom';
+import PropType from 'prop-types';
 
 import * as courseActions from '../../actions/course-actions';
+import CourseForm from './course-form';
 
 class ManageCoursePage extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      course: Object.assign({}, this.props.course),
+      errors:{}
+    };
+  }
+
   render() {
     return (
-      <div>Manage Course Page</div>
+      <div>
+        <h2>Manage Course</h2>
+        <CourseForm
+          allAuthors={[]}
+          course={this.state.course}
+          errors={this.state.errors}
+        />
+      </div>
     );
   }
 }
 
-ManageCoursePage.propTypes = {};
+ManageCoursePage.propTypes = {
+  course: PropType.object.isRequired
+};
 
 function mapStateToProps(state, ownProps) {
+  let course = {
+    id: '',
+    watchHref: '',
+    title: '',
+    authorId: '',
+    length: '',
+    category: ''
+  };
+  return {
+    course: course
+  };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {PropTypes} from 'prop-types';
-import {Route, withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 
 import * as courseActions from '../../actions/course-actions';
 import CourseList from './course-list';
-import ManageCoursePage from './manage-course-page';
 
 class CoursesPage extends Component {
   render() {
@@ -14,8 +13,6 @@ class CoursesPage extends Component {
       <div>
         <h1>Courses</h1>
         <CourseList courses={this.props.courses}/>
-
-        <Route path="/courses/:id" componenet={ManageCoursePage}/>
       </div>
     );
   }

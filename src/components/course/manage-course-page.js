@@ -19,14 +19,11 @@ class ManageCoursePage extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Manage Course</h2>
-        <CourseForm
-          allAuthors={[]}
-          course={this.state.course}
-          errors={this.state.errors}
-        />
-      </div>
+      <CourseForm
+        allAuthors={[]}
+        course={this.state.course}
+        errors={this.state.errors}
+      />
     );
   }
 }
